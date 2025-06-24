@@ -4,7 +4,6 @@ Created on Sun Jun  8 13:43:00 2025
 
 @author: sahakian.a
 """
-
 import json
 
 import re
@@ -29,6 +28,7 @@ def load_bible(filepath):
     
 verses_east= load_bible(r"C:\Users\sahakian.a\Downloads\datas\datas\bible_arm\east.txt")
 verses_west =  load_bible(r"C:\Users\sahakian.a\Downloads\datas\datas\bible_arm\west.txt")
+english = load_bible(r"C:\Users\sahakian.a\Downloads\datas\datas\bible_arm\eng.txt")
 
 
 
@@ -53,10 +53,24 @@ def align_bibles(ea, wa, output_path):
 
 # Example usage:
 if __name__ == "__main__":
-    align_bibles(verses_east[0],verses_west[0], r"C:\Users\sahakian.a\Downloads\datas\datas\bible_arm\parallel_bible.json")
+    align_bibles(english[0],verses_west[0], r"C:\Users\sahakian.a\Downloads\datas\datas\bible_arm\parallel_bible_eng_armenian.json")
 
 
 
-with open(r"C:\Users\sahakian.a\Downloads\datas\datas\bible_arm\parallel_bible.json", 'r', encoding='utf-8') as f:
+with open(r"C:\Users\sahakian.a\Downloads\datas\datas\bible_arm\\parallel_bible_eng_armenian.json", 'r', encoding='utf-8') as f:
     data = json.load(f)  # Loads JSON data into a Python dict or list
 
+
+def save_dict_values_to_txt(data: dict, output_path: str, skip_first_n: int = 4):
+    """
+    Save all the values of a dictionary into a .txt file,
+    skipping the first N entries.
+    """
+    with open(output_path, "w", encoding="utf-8") as f:
+        # Get the dictionary's values as a list
+        values = list(data.values())
+        # Skip the first N
+        for value in values[skip_first_n:]:
+            f.write(str(value) + "\n")
+            
+save_dict_values_to_txt(verses_west[0], r"C:\Users\sahakian.a\Downloads\datas\datas\bible_arm\\arm_text.txt")
